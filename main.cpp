@@ -8,6 +8,7 @@ struct AnimData
     float runningTime;
 };
 
+// check if scarfy is on the ground
 bool isOnGround(AnimData data, int windowHeight)
 {
     return data.pos.y >= windowHeight - data.rec.height;
@@ -45,10 +46,11 @@ int main(){
    // nebula varibales 
    Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
 
-   const int sizeOfNebula{10};
+    // number of nebulae in the game 
+   const int sizeOfNebula{10}; 
 
     AnimData nebulae[sizeOfNebula]{};
-
+    // creating animation for each nebula
     for (int i = 0; i < sizeOfNebula; i++)
     {
         nebulae[i].rec.x = 0.0;
@@ -62,7 +64,7 @@ int main(){
         nebulae[i].pos.x = windowDimensions[0] + i * 400;
     }
 
-    float finishLine{ nebulae[sizeOfNebula - 1].pos.x};
+    float finishLine{ nebulae[sizeOfNebula - 1].pos.x}; // creating finish line
 
    // neb X velocity (pixels per second)
    int nebVel{-320};
@@ -182,7 +184,7 @@ else
             scarfyData = updateAnimData(scarfyData, dT, 5);
        }
        
-       for (AnimData nebula : nebulae)
+       for (AnimData nebula : nebulae) // collision conditions
        {
             float pad{50};
             Rectangle nebRec{
@@ -206,10 +208,10 @@ else
        {
             // lose the game 
             DrawText("Game Over!", windowDimensions[0]/4, windowDimensions[1]/2, 40, RED);
-
        }
        else if (scarfyData.pos.x >= finishLine)
        {
+        // winning condition
         DrawText("You win!", windowDimensions[0]/4, windowDimensions[1]/2, 40, RED);
        }
        else
